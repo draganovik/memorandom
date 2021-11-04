@@ -9,6 +9,6 @@ html body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  @apply h-screen text-gray-800 bg-gray-200 dark:bg-gray-800 dark:text-gray-200;
+  @apply h-screen dark:text-gray-200 text-gray-800 bg-gray-50 dark:bg-gray-800;
 }
 </style>

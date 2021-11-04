@@ -4,10 +4,10 @@ module.exports = {
   purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   darkMode: 'media',
   theme: {
-    colors: {
-      transparent: 'transparent',
-      current: 'currentColor',
-      gray: colors.gray
+    extend: {
+      colors: {
+        gray: colors.gray
+      }
     }
   },
   variants: {
