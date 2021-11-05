@@ -8,7 +8,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
+    path: '/play',
     name: 'About',
     component: () => import('../views/GameBoard.vue')
   }

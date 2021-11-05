@@ -1,8 +1,18 @@
 import { createStore } from 'vuex'
+import obDeveloper from '@/assets/obverse/developer/design-back-dev-6.png'
+
+function getObverse(name) {
+  return new URL(`../assets/reverse/${name}.png`, import.meta.url).href
+}
 
 export default createStore({
   state: {
-    gameData: {},
+    gameData: {
+      rows: 3,
+      columns: 3,
+      backDesign: 'default',
+      cardDesign: 'developer'
+    },
     obverseDesigns: [
       {
         name: 'default',
@@ -10,16 +20,16 @@ export default createStore({
       },
       {
         name: 'developer',
-        image: 'src/assets/obverse/developer/design-back-dev-6.png'
+        image: obDeveloper
       },
       { name: 'animals', image: '' },
       { name: 'food', image: '' }
     ],
     reverseDesigns: [
-      { name: 'default', image: "'src/assets/reverse/default.svg'" },
-      { name: 'royal', image: "'src/assets/reverse/royal.svg'" },
-      { name: 'retro', image: "'src/assets/reverse/retro.svg'" },
-      { name: 'flora', image: "'src/assets/reverse/flora.svg'" }
+      { name: 'default', image: getObverse('default') },
+      { name: 'royal', image: getObverse('royal') },
+      { name: 'retro', image: getObverse('retro') },
+      { name: 'flora', image: getObverse('flora') }
     ]
   },
   mutations: {},

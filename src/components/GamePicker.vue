@@ -9,6 +9,7 @@ let gameData = ref({
   backDesign: 'default',
   cardDesign: 'developer'
 })
+
 const obverseDesigns = computed(() => store.state.obverseDesigns)
 const reverseDesigns = computed(() => store.state.reverseDesigns)
 </script>
@@ -21,6 +22,7 @@ const reverseDesigns = computed(() => store.state.reverseDesigns)
       m-auto
       p-8
       max-w-xl
+      text-center
       bg-gray-100
       dark:bg-gray-900
       rounded-lg
@@ -29,7 +31,7 @@ const reverseDesigns = computed(() => store.state.reverseDesigns)
     <h1 class="text-3xl font-black">Izaberite vrstu igre</h1>
     <div class="flex gap-3 justify-between">
       <router-link
-        to="/game1"
+        to="/play"
         class="
           ratio-wide
           dark:hover:bg-gray-600
@@ -47,7 +49,7 @@ const reverseDesigns = computed(() => store.state.reverseDesigns)
         <p class="text-lg">Pronađi dve iste</p>
       </router-link>
       <router-link
-        to="/game2"
+        to="/play"
         class="
           ratio-wide
           dark:hover:bg-gray-600
@@ -120,12 +122,6 @@ const reverseDesigns = computed(() => store.state.reverseDesigns)
 </template>
 
 <style lang="postcss" scoped>
-.ratio-wide {
-  aspect-ratio: 2/1;
-}
-.ratio-narrow {
-  aspect-ratio: 43/60;
-}
 img {
   object-fit: cover;
 }
@@ -150,7 +146,7 @@ input[type='radio'] {
 input[type='radio']:checked {
   @apply opacity-100;
   outline-style: solid;
-  outline-color: greenyellow;
+  outline-color: magenta;
 }
 input[type='radio']:hover {
   @apply opacity-100;
