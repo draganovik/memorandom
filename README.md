@@ -17,14 +17,14 @@ MemoRandom je veb igra pamćenja
 
 ## Screenshots
 
-<img src="https://user-images.githubusercontent.com/15861333/140624640-67e38f9d-e197-4a82-8ba5-c0c777b92696.png" height="500">
+<img src="https://user-images.githubusercontent.com/15861333/140624640-67e38f9d-e197-4a82-8ba5-c0c777b92696.png" width="300">
 
 ## Installation
 
 Install dependencies with npm
 
 ```bash
-$ npm install
+npm install
 ```
 
 ## Run Locally
@@ -32,7 +32,7 @@ $ npm install
 Serve with hot reload at localhost:3000
 
 ```bash
-$ npm run dev
+npm run dev
 ```
 
 ## Deployment
@@ -40,7 +40,7 @@ $ npm run dev
 Generate static project files (in _docs_ folder)
 
 ```bash
-$ npm run build
+npm run build
 ```
 
 ### Recommended IDE Setup
@@ -53,7 +53,7 @@ This project uses Vue 3 `<script setup>` SFCs, check out the [script setup docs]
 
 ## Demo
 
-https://memo.mladen.dev
+<https://memo.mladen.dev>
 
 ## Acknowledgements
 

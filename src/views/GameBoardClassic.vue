@@ -1,7 +1,7 @@
 <script setup>
 import { useStore } from 'vuex'
 import { computed, ref } from 'vue'
-import GameMemory from '../js/GameMemory'
+import GameMemory from '../js/GameMemoryClassic'
 
 const store = useStore()
 const settings = computed(() => store.state.gameData)

@@ -10,12 +10,12 @@ const routes = [
   {
     path: '/playClassic',
     name: 'Clasic',
-    component: () => import('../views/GameBoard.vue')
+    component: () => import('../views/GameBoardClassic.vue')
   },
   {
     path: '/playAdvanced',
     name: 'Advanced',
-    component: () => import('../views/GameBoard.vue')
+    component: () => import('../views/GameBoardAdvanced.vue')
   },
   { path: '/:pathMatch(.*)*', redirect: { name: 'Menu' } }
 ]
