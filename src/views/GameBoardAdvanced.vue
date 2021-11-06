@@ -6,36 +6,36 @@ import GameMemory from '../js/GameMemoryAdvanced'
 const store = useStore()
 const settings = computed(() => store.state.gameData)
 const isSolved = computed(() => {
-  return solvedCount.value == testGame.value._cards.length
+  return solvedCount.value == gameLogic.value._cards.length
 })
 
-let testGame = ref(new GameMemory(settings.value))
+let gameLogic = ref(new GameMemory(settings.value))
 let timeElapsed = ref('Nije početo')
 let solvedCount = ref(0)
 let flipedCards = []
 
 function Restart() {
-  testGame.value = new GameMemory(settings.value)
+  gameLogic.value = new GameMemory(settings.value)
   timeElapsed.value = 'Nije početo'
   solvedCount.value = 0
 }
 function CardClick(card) {
   if (!card.faceUp) {
-    if (testGame.value.getGameState() != 'running') {
-      testGame.value.StartGame()
+    if (gameLogic.value.getGameState() != 'running') {
+      gameLogic.value.StartGame()
       gameTimer(Date.now())
     }
-    if (testGame.value.getGameState() == 'running') {
+    if (gameLogic.value.getGameState() == 'running') {
       card.faceUp = true
       flipedCards.push(card)
-      testGame.value.steps++
+      gameLogic.value.steps++
       if (flipedCards.length > 1) {
         setTimeout(function () {
           if (flipedCards.length > 1) {
             if (flipedCards[0].imageUrl == flipedCards[1].imageUrl) {
               solvedCount.value += 2
               if (isSolved.value) {
-                testGame.value.EndGame()
+                gameLogic.value.EndGame()
               }
             } else {
               flipedCards[0].faceUp = false
@@ -73,7 +73,7 @@ function gameTimer(countDownDate) {
       's'
 
     // If the game is over, stop
-    if (testGame.value.getGameState() == 'ended') {
+    if (gameLogic.value.getGameState() == 'ended') {
       clearInterval(timer)
     }
   }, 1000)
@@ -106,7 +106,7 @@ function gameTimer(countDownDate) {
       </div>
       <div class="text-right lg:text-left">
         <h2 class="text-gray-400">Broj poteza:</h2>
-        <p class="text-2xl font-bold">{{ testGame.steps }}</p>
+        <p class="text-2xl font-bold">{{ gameLogic.steps }}</p>
       </div>
     </section>
 
@@ -123,26 +123,26 @@ function gameTimer(countDownDate) {
     >
       <button
         class="flip-card hover:translate-x-1 hover:rotate-3"
-        @click="CardClick(testGame._mainCard)"
+        @click="CardClick(gameLogic._mainCard)"
       >
         <div
           class="flip-card-inner ratio-narrow"
-          :class="{ flip: testGame._mainCard.faceUp }"
+          :class="{ flip: gameLogic._mainCard.faceUp }"
         >
           <img
             class="flip-card-reverse w-full"
-            :src="testGame.getReverseURL()"
+            :src="gameLogic.getReverseURL()"
             alt="Zadnja strana"
           />
           <img
             class="flip-card-obverse"
-            :src="testGame.getMainCard().imageUrl"
+            :src="gameLogic.getMainCard().imageUrl"
             alt="Prednja strana"
           />
         </div>
       </button>
       <button
-        v-for="card in testGame.getPlayingCards()"
+        v-for="card in gameLogic.getPlayingCards()"
         :key="card.id"
         class="flip-card hover:translate-x-1 hover:rotate-3"
         @click="CardClick(card)"
@@ -153,7 +153,7 @@ function gameTimer(countDownDate) {
         >
           <img
             class="flip-card-reverse w-full"
-            :src="testGame.getReverseURL()"
+            :src="gameLogic.getReverseURL()"
             alt="Zadnja strana"
           />
           <img
@@ -193,7 +193,7 @@ function gameTimer(countDownDate) {
       <p class="text-lg">
         Rešili ste tabelu <b>{{ settings.columns }}x{{ settings.rows }}</b>
         <br />
-        za <b>{{ timeElapsed }}</b> sa <b>{{ testGame.steps }}</b> koraka
+        za <b>{{ timeElapsed }}</b> sa <b>{{ gameLogic.steps }}</b> koraka
       </p>
       <div class="flex gap-4 mx-auto">
         <button class="button" @click="Restart()">NOVA IGRA</button>

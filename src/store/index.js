@@ -1,7 +1,8 @@
 import { createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
-function getObverse(name) {
-  return new URL(`../assets/obverse/${name}.png`, import.meta.url).href
+function getObverseDeveloper(name) {
+  return new URL(`../assets/obverse/developer/${name}.png`, import.meta.url)
+    .href
 }
 function getReverse(name) {
   return new URL(`../assets/reverse/${name}.png`, import.meta.url).href
@@ -18,7 +19,7 @@ export default createStore({
     obverseDesigns: [
       {
         name: 'developer',
-        image: getObverse('developer/design-back-dev-6')
+        image: getObverseDeveloper('design-back-dev-6')
       }
     ],
     reverseDesigns: [
