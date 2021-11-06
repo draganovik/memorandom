@@ -7,13 +7,12 @@ class GameMemory {
   }
 
   StartGame() {
-    //this._prepareCards()
     this._gameState = 'running'
     this.steps = 0
   }
 
-  getGameState() {
-    return this._gameState
+  EndGame() {
+    this._gameState = 'ended'
   }
 
   _prepareCards() {
@@ -31,8 +30,11 @@ class GameMemory {
     this._cards = this._shuffleCards(_shuffle)
   }
 
-  getPlayingCards() {
-    return this._cards
+  _shuffleCards(cards) {
+    return cards
+      .map((value) => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value)
   }
 
   _loadAssets() {
@@ -44,13 +46,10 @@ class GameMemory {
         this._loadObverseDefault()
         break
     }
-  }
-
-  _shuffleCards(cards) {
-    return cards
-      .map((value) => ({ value, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ value }) => value)
+    this._reverseURL = new URL(
+      `../assets/reverse/${this._settings.backDesign}.png`,
+      import.meta.url
+    ).href
   }
 
   async _loadObverseDeveloper() {
@@ -76,6 +75,18 @@ class GameMemory {
         ).href
       )
     }
+  }
+
+  getGameState() {
+    return this._gameState
+  }
+
+  getPlayingCards() {
+    return this._cards
+  }
+
+  getReverseURL() {
+    return this._reverseURL
   }
 }
 export default GameMemory

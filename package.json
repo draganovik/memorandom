@@ -11,7 +11,8 @@
   "dependencies": {
     "vue": "^3.2.16",
     "vue-router": "^4.0.12",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.9.3",

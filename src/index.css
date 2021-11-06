@@ -11,3 +11,13 @@
 .ratio-narrow {
   aspect-ratio: 423/600;
 }
+
+.button {
+  border: 1px solid #8000809f;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.4rem;
+  background-color: #8000804c;
+}
+.button:hover {
+  background-color: #8000809a;
+}

@@ -1,6 +1,6 @@
 <template>
   <main class="home">
-    <GamePicker class="game-picker" />
+    <GamePicker />
   </main>
 </template>
 

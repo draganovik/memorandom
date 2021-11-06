@@ -1,17 +1,23 @@
 <script setup>
 import { useStore } from 'vuex'
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 const store = useStore()
-
-let gameData = ref({
-  rows: 3,
-  columns: 3,
-  backDesign: 'default',
-  cardDesign: 'developer'
-})
-
 const obverseDesigns = computed(() => store.state.obverseDesigns)
 const reverseDesigns = computed(() => store.state.reverseDesigns)
+
+let gameData = computed(() => store.state.gameData)
+
+function changeBackDesign(design) {
+  store.commit('changeBackDesign', design)
+}
+
+function changeRows(event) {
+  store.commit('changeRows', Math.floor(event.target.value))
+}
+
+function changeColumns(event) {
+  store.commit('changeColumns', event.target.value)
+}
 </script>
 
 <template>
@@ -70,21 +76,24 @@ const reverseDesigns = computed(() => store.state.reverseDesigns)
     <h2 class="text-2xl font-bold">Dodatne opcije</h2>
     <div class="grid gap-8 grid-cols-2 grid-rows-2 align-top text-left">
       <div class="flex flex-col gap-4 row-span-2 row-start-1">
-        <p class="text-lg">Broj redova: {{ gameData.rows }}</p>
+        <p class="text-lg">Broj redova: {{ Math.floor(gameData.rows) }}</p>
         <input
           v-model="gameData.rows"
           class="w-full"
           type="range"
           min="3"
+          step="1.5"
           max="6"
+          @input="changeRows($event)"
         />
         <p class="text-lg">Broj kolona: {{ gameData.columns }}</p>
         <input
           v-model="gameData.columns"
           class="w-full"
           type="range"
-          min="3"
+          min="4"
           max="6"
+          @input="changeColumns($event)"
         />
       </div>
       <div>
@@ -106,18 +115,25 @@ const reverseDesigns = computed(() => store.state.reverseDesigns)
         <p class="mb-3 text-lg">Dizajn pozadine:</p>
         <div class="flex gap-2 h-20">
           <input
-            v-for="i in reverseDesigns"
-            :key="i"
-            v-model="gameData.backDesign"
+            v-for="design in reverseDesigns"
+            :key="design"
+            :checked="design.name == gameData.backDesign"
             type="radio"
             name="back-design"
-            :value="i.name"
-            :style="{ '--bg-image': 'url(' + i.image + ')' }"
+            :value="design.name"
+            :style="{ '--bg-image': 'url(' + design.image + ')' }"
             class="ratio-narrow"
+            @input="changeBackDesign(design.name)"
           />
         </div>
       </div>
     </div>
+    <a
+      class="text-gray-700"
+      target="_blank"
+      href="https://www.vecteezy.com/free-vector/playing-cards"
+      >Playing Cards inspiration from Vecteezy</a
+    >
   </form>
 </template>
 

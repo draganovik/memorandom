@@ -1,7 +1,9 @@
 import { createStore } from 'vuex'
-import obDeveloper from '@/assets/obverse/developer/design-back-dev-6.png'
-
+import createPersistedState from 'vuex-persistedstate'
 function getObverse(name) {
+  return new URL(`../assets/obverse/${name}.png`, import.meta.url).href
+}
+function getReverse(name) {
   return new URL(`../assets/reverse/${name}.png`, import.meta.url).href
 }
 
@@ -15,24 +17,35 @@ export default createStore({
     },
     obverseDesigns: [
       {
-        name: 'default',
-        image: ''
-      },
-      {
         name: 'developer',
-        image: obDeveloper
+        image: getObverse('developer/design-back-dev-6')
       },
       { name: 'animals', image: '' },
-      { name: 'food', image: '' }
+      { name: 'food', image: '' },
+      {
+        name: 'default',
+        image: ''
+      }
     ],
     reverseDesigns: [
-      { name: 'default', image: getObverse('default') },
-      { name: 'royal', image: getObverse('royal') },
-      { name: 'retro', image: getObverse('retro') },
-      { name: 'flora', image: getObverse('flora') }
+      { name: 'default', image: getReverse('default') },
+      { name: 'royal', image: getReverse('royal') },
+      { name: 'retro', image: getReverse('retro') },
+      { name: 'flora', image: getReverse('flora') }
     ]
   },
-  mutations: {},
+  mutations: {
+    changeBackDesign(state, design) {
+      state.gameData.backDesign = design
+    },
+    changeRows(state, rows) {
+      state.gameData.rows = rows
+    },
+    changeColumns(state, cols) {
+      state.gameData.columns = cols
+    }
+  },
   actions: {},
-  modules: {}
+  modules: {},
+  plugins: [createPersistedState()]
 })
