@@ -2,15 +2,14 @@
 import { useStore } from 'vuex'
 import { computed, ref } from 'vue'
 import GameMemory from '../js/GameMemory'
+
 const store = useStore()
 const settings = computed(() => store.state.gameData)
-
-let testGame = ref(new GameMemory(settings.value))
-
 const isSolved = computed(() => {
   return solvedCount.value == testGame.value._cards.length
 })
 
+let testGame = ref(new GameMemory(settings.value))
 let timeElapsed = ref('Nije početo')
 let solvedCount = ref(0)
 let flipedCards = []
@@ -20,13 +19,41 @@ function Restart() {
   timeElapsed.value = 'Nije početo'
   solvedCount.value = 0
 }
-
-let gameTimer = (countDownDate) => {
+function CardClick(card) {
+  if (!card.faceUp) {
+    if (testGame.value.getGameState() != 'running') {
+      testGame.value.StartGame()
+      gameTimer(Date.now())
+    }
+    if (testGame.value.getGameState() == 'running') {
+      card.faceUp = true
+      flipedCards.push(card)
+      testGame.value.steps++
+      if (flipedCards.length > 1) {
+        setTimeout(function () {
+          if (flipedCards.length > 1) {
+            if (flipedCards[0].imageUrl == flipedCards[1].imageUrl) {
+              solvedCount.value += 2
+              if (isSolved.value) {
+                testGame.value.EndGame()
+              }
+            } else {
+              flipedCards[0].faceUp = false
+              flipedCards[1].faceUp = false
+            }
+            flipedCards.splice(0, 2)
+          }
+        }, 1200)
+      }
+    }
+  }
+}
+function gameTimer(countDownDate) {
   let timer = setInterval(function () {
-    // Get today's date and time
+    // Get start date and time
     var now = new Date().getTime()
 
-    // Find the distance between now and the count down date
+    // Find the distance between start time and now
     var distance = now - countDownDate
 
     // Time calculations for days, hours, minutes and seconds
@@ -37,7 +64,7 @@ let gameTimer = (countDownDate) => {
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
     var seconds = Math.floor((distance % (1000 * 60)) / 1000)
 
-    // Output the result in an element with id="demo"
+    // Save result
     timeElapsed.value =
       (days > 0 ? days + 'd ' : '') +
       (hours > 0 ? hours + 'h ' : '') +
@@ -45,41 +72,11 @@ let gameTimer = (countDownDate) => {
       seconds +
       's'
 
-    // If the count down is over, stop
+    // If the game is over, stop
     if (testGame.value.getGameState() == 'ended') {
       clearInterval(timer)
     }
   }, 1000)
-}
-
-function CardClick(card) {
-  if (testGame.value.getGameState() != 'running') {
-    testGame.value.StartGame()
-    gameTimer(Date.now())
-  }
-  if (testGame.value.getGameState() == 'running' && !card.faceUp) {
-    card.faceUp = true
-    if (card.faceUp) {
-      flipedCards.push(card)
-    }
-    testGame.value.steps++
-    if (flipedCards.length > 1) {
-      setTimeout(function () {
-        if (flipedCards.length > 1) {
-          if (flipedCards[0].imageUrl == flipedCards[1].imageUrl) {
-            solvedCount.value += 2
-            if (isSolved.value) {
-              testGame.value.EndGame()
-            }
-          } else {
-            flipedCards[0].faceUp = false
-            flipedCards[1].faceUp = false
-          }
-          flipedCards.splice(0, 2)
-        }
-      }, 1200)
-    }
-  }
 }
 </script>
 

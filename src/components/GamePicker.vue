@@ -29,25 +29,22 @@ function changeColumns(event) {
       p-8
       max-w-xl
       text-center
-      bg-gray-100
-      dark:bg-gray-900
+      bg-gray-900
       rounded-lg
     "
   >
     <h1 class="text-3xl font-black">Izaberite vrstu igre</h1>
     <div class="flex gap-3 justify-between">
       <router-link
-        to="/play"
+        to="/playClassic"
         class="
           ratio-wide
-          dark:hover:bg-gray-600
           grid
           place-items-center
           py-2
           w-1/2
-          bg-gray-200
-          hover:bg-gray-300
-          dark:bg-gray-700
+          hover:bg-gray-600
+          bg-gray-700
           rounded
         "
       >
@@ -55,17 +52,15 @@ function changeColumns(event) {
         <p class="text-lg">Pronađi dve iste</p>
       </router-link>
       <router-link
-        to="/play"
+        to="/playAdvanced"
         class="
           ratio-wide
-          dark:hover:bg-gray-600
           grid
           place-items-center
           py-2
           w-1/2
-          bg-gray-200
-          hover:bg-gray-300
-          dark:bg-gray-700
+          hover:bg-gray-600
+          bg-gray-700
           rounded
         "
       >

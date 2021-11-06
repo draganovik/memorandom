@@ -65,18 +65,6 @@ class GameMemory {
     }
   }
 
-  async _loadObverseDefault() {
-    this._cardSet = []
-    for (var i = 1; i < 25; i++) {
-      this._cardSet.push(
-        new URL(
-          `../assets/obverse/developer/design-back-default-${i}.png`,
-          import.meta.url
-        ).href
-      )
-    }
-  }
-
   getGameState() {
     return this._gameState
   }

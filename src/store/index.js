@@ -19,12 +19,6 @@ export default createStore({
       {
         name: 'developer',
         image: getObverse('developer/design-back-dev-6')
-      },
-      { name: 'animals', image: '' },
-      { name: 'food', image: '' },
-      {
-        name: 'default',
-        image: ''
       }
     ],
     reverseDesigns: [

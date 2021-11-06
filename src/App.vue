@@ -13,6 +13,6 @@ html body {
   -moz-osx-font-smoothing: grayscale;
   background-image: url('~@/assets/pattern.svg');
   background-repeat: repeat;
-  @apply min-h-screen dark:text-gray-200 text-gray-800 bg-gray-50 dark:bg-gray-800;
+  @apply min-h-screen text-gray-200 bg-gray-800;
 }
 </style>

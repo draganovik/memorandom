@@ -1,17 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/GameMenu.vue'
+import Menu from '../views/GameMenu.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Menu',
+    component: Menu
   },
   {
-    path: '/play',
-    name: 'About',
+    path: '/playClassic',
+    name: 'Clasic',
     component: () => import('../views/GameBoard.vue')
-  }
+  },
+  {
+    path: '/playAdvanced',
+    name: 'Advanced',
+    component: () => import('../views/GameBoard.vue')
+  },
+  { path: '/:pathMatch(.*)*', redirect: { name: 'Menu' } }
 ]
 
 const router = createRouter({
