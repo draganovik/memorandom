@@ -9,7 +9,7 @@ export default createStore({
   state: {
     gameData: {
       rows: 3,
-      columns: 3,
+      columns: 4,
       backDesign: 'default',
       cardDesign: 'developer'
     },
