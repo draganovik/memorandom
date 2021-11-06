@@ -2,7 +2,7 @@
 
 MemoRandom je veb igra pamćenja
 
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+![logoMemoRandom](https://user-images.githubusercontent.com/15861333/140624609-d766d0a1-c2df-41e9-bb61-d09c5c7ead79.png)
 
 ## Badges
 
@@ -17,7 +17,7 @@ MemoRandom je veb igra pamćenja
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+<img src="https://user-images.githubusercontent.com/15861333/140624640-67e38f9d-e197-4a82-8ba5-c0c777b92696.png" height="500">
 
 ## Installation
 
