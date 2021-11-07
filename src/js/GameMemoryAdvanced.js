@@ -14,10 +14,8 @@ class GameMemory {
     if (this._gameState == 'running') {
       temp = temp.filter((card) => card.found != true)
     }
-    console.log(temp)
     this._mainCard = temp[Math.floor(Math.random() * temp.length)]
     this._mainCard.faceUp = !this._mainCard.faceUp
-    console.log(this._mainCard)
   }
 
   StartGame() {
@@ -66,7 +64,7 @@ class GameMemory {
 
   async _loadObverseDeveloper() {
     this._cardSet = []
-    for (var i = 1; i < 25; i++) {
+    for (var i = 1; i < 37; i++) {
       this._cardSet.push({
         faceUp: true,
         imageUrl: new URL(

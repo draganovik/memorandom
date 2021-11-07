@@ -27,10 +27,13 @@ function changeColumns(event) {
       gap-6
       m-auto
       p-8
-      max-w-xl
+      w-full
+      h-full
       text-center
       bg-gray-900
-      rounded-lg
+      rounded-none
+      opacity-95
+      md:mt-6 md:max-w-xl md:h-auto md:rounded-lg md:opacity-100
     "
   >
     <h1 class="text-3xl font-black">Izaberite vrstu igre</h1>
@@ -69,8 +72,17 @@ function changeColumns(event) {
       >
     </div>
     <h2 class="text-2xl font-bold">Dodatne opcije</h2>
-    <div class="grid gap-8 grid-cols-2 grid-rows-2 align-top text-left">
-      <div class="flex flex-col gap-4 row-span-2 row-start-1">
+    <div
+      class="
+        grid
+        gap-8
+        grid-rows-3
+        align-top
+        text-left
+        md:grid-cols-2 md:grid-rows-2
+      "
+    >
+      <div class="flex flex-col gap-4 row-start-1 md:row-span-2">
         <p class="text-lg">Broj redova: {{ Math.floor(gameSettings.rows) }}</p>
         <input
           v-model="gameSettings.rows"

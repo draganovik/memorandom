@@ -54,7 +54,7 @@ class GameMemory {
 
   async _loadObverseDeveloper() {
     this._cardSet = []
-    for (var i = 1; i < 25; i++) {
+    for (var i = 1; i < 37; i++) {
       this._cardSet.push({
         faceUp: false,
         imageUrl: new URL(

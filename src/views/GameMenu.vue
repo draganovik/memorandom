@@ -15,8 +15,3 @@ export default {
   }
 }
 </script>
-<style lang="postcss" scoped>
-main {
-  padding: 10vh 0;
-}
-</style>
