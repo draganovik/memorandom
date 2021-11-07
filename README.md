@@ -38,7 +38,7 @@ npm run dev
 
 ## Deployment
 
-Generate static project files (in _docs_ folder)
+Generate static project files
 
 ```bash
 npm run build
