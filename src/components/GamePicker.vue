@@ -7,8 +7,12 @@ const reverseDesigns = computed(() => store.state.reverseDesigns)
 
 let gameSettings = computed(() => store.state.gameSettings)
 
-function changeBackDesign(design) {
-  store.commit('changeBackDesign', design)
+function changeReverseDesign(design) {
+  store.commit('changeReverseDesign', design)
+}
+
+function changeObverseDesign(design) {
+  store.commit('changeObverseDesign', design)
 }
 
 function changeRows(event) {
@@ -33,7 +37,7 @@ function changeColumns(event) {
       bg-gray-900
       rounded-none
       opacity-95
-      md:mt-6 md:max-w-xl md:h-auto md:rounded-lg md:opacity-100
+      md:mt-10 md:max-w-xl md:h-auto md:rounded-lg md:opacity-100
     "
   >
     <h1 class="text-3xl font-black">Izaberite vrstu igre</h1>
@@ -107,14 +111,15 @@ function changeColumns(event) {
         <p class="mb-3 text-lg">Tema kartica:</p>
         <div class="flex gap-2 h-20">
           <input
-            v-for="i in obverseDesigns"
-            :key="i"
-            v-model="gameSettings.cardDesign"
+            v-for="design in obverseDesigns"
+            :key="design"
+            v-model="gameSettings.obverseDesign"
             type="radio"
             name="card-design"
-            :value="i.name"
-            :style="{ '--bg-image': 'url(' + i.image + ')' }"
+            :value="design.name"
+            :style="{ '--bg-image': 'url(' + design.image + ')' }"
             class="ratio-narrow"
+            @input="changeObverseDesign(design.name)"
           />
         </div>
       </div>
@@ -124,13 +129,13 @@ function changeColumns(event) {
           <input
             v-for="design in reverseDesigns"
             :key="design"
-            :checked="design.name == gameSettings.backDesign"
+            :checked="design.name == gameSettings.reverseDesign"
             type="radio"
             name="back-design"
             :value="design.name"
             :style="{ '--bg-image': 'url(' + design.image + ')' }"
             class="ratio-narrow"
-            @input="changeBackDesign(design.name)"
+            @input="changeReverseDesign(design.name)"
           />
         </div>
       </div>

@@ -48,16 +48,16 @@ class GameMemory {
   }
 
   _loadAssets() {
-    switch (this._settings.cardDesign) {
+    switch (this._settings.obverseDesign) {
       case 'developer':
         this._loadObverseDeveloper()
         break
       default:
-        this._loadObverseDefault()
+        this._loadObverseClassical()
         break
     }
     this._reverseURL = new URL(
-      `../assets/reverse/${this._settings.backDesign}.png`,
+      `../assets/reverse/${this._settings.reverseDesign}.png`,
       import.meta.url
     ).href
   }
@@ -69,6 +69,18 @@ class GameMemory {
         faceUp: true,
         imageUrl: new URL(
           `../assets/obverse/developer/design-back-dev-${i}.png`,
+          import.meta.url
+        ).href
+      })
+    }
+  }
+  async _loadObverseClassical() {
+    this._cardSet = []
+    for (var i = 1; i < 52; i++) {
+      this._cardSet.push({
+        faceUp: true,
+        imageUrl: new URL(
+          `../assets/obverse/classical/design-back-classic-${i}.png`,
           import.meta.url
         ).href
       })
