@@ -10,7 +10,7 @@ function getReverse(name) {
 
 export default createStore({
   state: {
-    gameData: {
+    gameSettings: {
       rows: 3,
       columns: 4,
       backDesign: 'default',
@@ -31,13 +31,13 @@ export default createStore({
   },
   mutations: {
     changeBackDesign(state, design) {
-      state.gameData.backDesign = design
+      state.gameSettings.backDesign = design
     },
     changeRows(state, rows) {
-      state.gameData.rows = rows
+      state.gameSettings.rows = rows
     },
     changeColumns(state, cols) {
-      state.gameData.columns = cols
+      state.gameSettings.columns = cols
     }
   },
   actions: {},

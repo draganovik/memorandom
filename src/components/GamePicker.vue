@@ -5,7 +5,7 @@ const store = useStore()
 const obverseDesigns = computed(() => store.state.obverseDesigns)
 const reverseDesigns = computed(() => store.state.reverseDesigns)
 
-let gameData = computed(() => store.state.gameData)
+let gameSettings = computed(() => store.state.gameSettings)
 
 function changeBackDesign(design) {
   store.commit('changeBackDesign', design)
@@ -71,9 +71,9 @@ function changeColumns(event) {
     <h2 class="text-2xl font-bold">Dodatne opcije</h2>
     <div class="grid gap-8 grid-cols-2 grid-rows-2 align-top text-left">
       <div class="flex flex-col gap-4 row-span-2 row-start-1">
-        <p class="text-lg">Broj redova: {{ Math.floor(gameData.rows) }}</p>
+        <p class="text-lg">Broj redova: {{ Math.floor(gameSettings.rows) }}</p>
         <input
-          v-model="gameData.rows"
+          v-model="gameSettings.rows"
           class="w-full"
           type="range"
           min="3"
@@ -81,9 +81,9 @@ function changeColumns(event) {
           max="6"
           @input="changeRows($event)"
         />
-        <p class="text-lg">Broj kolona: {{ gameData.columns }}</p>
+        <p class="text-lg">Broj kolona: {{ gameSettings.columns }}</p>
         <input
-          v-model="gameData.columns"
+          v-model="gameSettings.columns"
           class="w-full"
           type="range"
           min="4"
@@ -97,7 +97,7 @@ function changeColumns(event) {
           <input
             v-for="i in obverseDesigns"
             :key="i"
-            v-model="gameData.cardDesign"
+            v-model="gameSettings.cardDesign"
             type="radio"
             name="card-design"
             :value="i.name"
@@ -112,7 +112,7 @@ function changeColumns(event) {
           <input
             v-for="design in reverseDesigns"
             :key="design"
-            :checked="design.name == gameData.backDesign"
+            :checked="design.name == gameSettings.backDesign"
             type="radio"
             name="back-design"
             :value="design.name"

@@ -4,7 +4,7 @@ import { computed, ref } from 'vue'
 import GameMemory from '../js/GameMemoryClassic'
 
 const store = useStore()
-const settings = computed(() => store.state.gameData)
+const settings = computed(() => store.state.gameSettings)
 const isSolved = computed(() => {
   return solvedCount.value == gameLogic.value._cards.length
 })

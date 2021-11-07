@@ -1,6 +1,6 @@
 class GameMemory {
-  constructor(gameData) {
-    this._settings = gameData
+  constructor(gameSettings) {
+    this._settings = gameSettings
     this.steps = 0
     this._loadAssets()
     this._prepareCards()

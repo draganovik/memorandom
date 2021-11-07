@@ -4,7 +4,7 @@ import { computed, ref } from 'vue'
 import GameMemory from '../js/GameMemoryAdvanced'
 
 const store = useStore()
-const settings = computed(() => store.state.gameData)
+const settings = computed(() => store.state.gameSettings)
 const isSolved = computed(() => {
   return solvedCount.value == gameLogic.value._cards.length
 })
@@ -12,7 +12,6 @@ const isSolved = computed(() => {
 let gameLogic = ref(new GameMemory(settings.value))
 let timeElapsed = ref('Nije početo')
 let solvedCount = ref(0)
-let flipedCards = []
 
 function Restart() {
   gameLogic.value = new GameMemory(settings.value)
@@ -23,28 +22,23 @@ function CardClick(card) {
   if (!card.faceUp) {
     if (gameLogic.value.getGameState() != 'running') {
       gameLogic.value.StartGame()
-      gameTimer(Date.now())
-    }
-    if (gameLogic.value.getGameState() == 'running') {
       card.faceUp = true
-      flipedCards.push(card)
+      gameTimer(Date.now())
+    } else if (gameLogic.value.getGameState() == 'running') {
+      card.faceUp = true
       gameLogic.value.steps++
-      if (flipedCards.length > 1) {
-        setTimeout(function () {
-          if (flipedCards.length > 1) {
-            if (flipedCards[0].imageUrl == flipedCards[1].imageUrl) {
-              solvedCount.value += 2
-              if (isSolved.value) {
-                gameLogic.value.EndGame()
-              }
-            } else {
-              flipedCards[0].faceUp = false
-              flipedCards[1].faceUp = false
-            }
-            flipedCards.splice(0, 2)
+      setTimeout(function () {
+        if (card.imageUrl == gameLogic.value.getMainCard().imageUrl) {
+          solvedCount.value++
+          card.found = true
+          if (isSolved.value) {
+            gameLogic.value.EndGame()
           }
-        }, 1200)
-      }
+          gameLogic.value.setMainCard()
+        } else {
+          card.faceUp = false
+        }
+      }, 1200)
     }
   }
 }
@@ -109,25 +103,25 @@ function gameTimer(countDownDate) {
         <p class="text-2xl font-bold">{{ gameLogic.steps }}</p>
       </div>
     </section>
-
-    <section
-      class="board grid gap-1 m-auto mt-8 p-2 lg:mt-20"
-      :class="{ dimmed: isSolved }"
+    <div
+      class="m-auto mt-8 p-2 text-center lg:mt-20"
       :style="{
-        gridTemplateColumns: 'repeat(' + settings.columns + ', 1fr)',
         maxWidth:
           'calc((90vh - 5.5rem) * ' +
-          (settings.columns * 0.705) / settings.rows +
+          (settings.columns * 0.705) / (settings.rows + 1) +
           ')'
       }"
     >
       <button
-        class="flip-card hover:translate-x-1 hover:rotate-3"
-        @click="CardClick(gameLogic._mainCard)"
+        :style="{
+          width: 'calc(100%/' + settings.columns + ')'
+        }"
+        class="flip-card row-span-full hover:translate-x-1 hover:rotate-3"
+        @click="CardClick(gameLogic.getMainCard())"
       >
         <div
           class="flip-card-inner ratio-narrow"
-          :class="{ flip: gameLogic._mainCard.faceUp }"
+          :class="{ flip: gameLogic.getMainCard().faceUp }"
         >
           <img
             class="flip-card-reverse w-full"
@@ -141,29 +135,37 @@ function gameTimer(countDownDate) {
           />
         </div>
       </button>
-      <button
-        v-for="card in gameLogic.getPlayingCards()"
-        :key="card.id"
-        class="flip-card hover:translate-x-1 hover:rotate-3"
-        @click="CardClick(card)"
+      <section
+        class="grid gap-1"
+        :class="{ dimmed: isSolved }"
+        :style="{
+          gridTemplateColumns: 'repeat(' + settings.columns + ', 1fr)'
+        }"
       >
-        <div
-          class="flip-card-inner ratio-narrow"
-          :class="{ flip: !card.faceUp }"
+        <button
+          v-for="card in gameLogic.getPlayingCards()"
+          :key="card.id"
+          class="flip-card hover:translate-x-1 hover:rotate-3"
+          @click="CardClick(card)"
         >
-          <img
-            class="flip-card-reverse w-full"
-            :src="gameLogic.getReverseURL()"
-            alt="Zadnja strana"
-          />
-          <img
-            class="flip-card-obverse"
-            :src="card.imageUrl"
-            alt="Prednja strana"
-          />
-        </div>
-      </button>
-    </section>
+          <div
+            class="flip-card-inner ratio-narrow"
+            :class="{ flip: card.faceUp }"
+          >
+            <img
+              class="flip-card-reverse w-full"
+              :src="gameLogic.getReverseURL()"
+              alt="Zadnja strana"
+            />
+            <img
+              class="flip-card-obverse"
+              :src="card.imageUrl"
+              alt="Prednja strana"
+            />
+          </div>
+        </button>
+      </section>
+    </div>
     <section
       v-if="isSolved"
       class="
@@ -186,9 +188,9 @@ function gameTimer(countDownDate) {
         md:max-w-2xl md:h-auto md:border md:border-green-700 md:opacity-100
       "
     >
-      <p class="text-6xl">🥳</p>
+      <p class="text-6xl">🎊 🥳 🎊</p>
       <h1 class="text-green-300 text-3xl font-bold">
-        Uspeh, uparili ste sve kartice!
+        Uspeh, pronašli ste sve kartice!
       </h1>
       <p class="text-lg">
         Rešili ste tabelu <b>{{ settings.columns }}x{{ settings.rows }}</b>

@@ -1,20 +1,29 @@
 class GameMemory {
-  constructor(gameData) {
-    this._settings = gameData
+  constructor(settings) {
+    this._settings = settings
     this.steps = 0
     this._loadAssets()
     this._prepareCards()
-    this._selectMain()
+    this.setMainCard()
   }
 
-  _selectMain() {
+  setMainCard() {
     let temp = this._cards.map((a) => {
       return { ...a }
     })
+    if (this._gameState == 'running') {
+      temp = temp.filter((card) => card.found != true)
+    }
+    console.log(temp)
     this._mainCard = temp[Math.floor(Math.random() * temp.length)]
+    this._mainCard.faceUp = !this._mainCard.faceUp
+    console.log(this._mainCard)
   }
 
   StartGame() {
+    this._cards.forEach((card) => {
+      card.faceUp = false
+    })
     this._gameState = 'running'
     this.steps = 0
   }
@@ -59,7 +68,7 @@ class GameMemory {
     this._cardSet = []
     for (var i = 1; i < 25; i++) {
       this._cardSet.push({
-        faceUp: false,
+        faceUp: true,
         imageUrl: new URL(
           `../assets/obverse/developer/design-back-dev-${i}.png`,
           import.meta.url
