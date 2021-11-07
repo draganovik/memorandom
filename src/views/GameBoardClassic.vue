@@ -1,7 +1,7 @@
 <script setup>
 import { useStore } from 'vuex'
 import { computed, ref } from 'vue'
-import GameMemory from '../js/GameMemoryClassic'
+import GameMemoryClassic from '../js/GameMemoryClassic'
 
 const store = useStore()
 const settings = computed(() => store.state.gameSettings)
@@ -9,40 +9,49 @@ const isSolved = computed(() => {
   return solvedCount.value == gameLogic.value._cards.length
 })
 
-let gameLogic = ref(new GameMemory(settings.value))
+let gameLogic = ref(new GameMemoryClassic(settings.value))
 let timeElapsed = ref('Nije početo')
 let solvedCount = ref(0)
-let flipedCards = []
+let flippedCards = []
 
 function Restart() {
-  gameLogic.value = new GameMemory(settings.value)
+  gameLogic.value.FlipAll(false)
   timeElapsed.value = 'Nije početo'
   solvedCount.value = 0
+  setTimeout(() => {
+    gameLogic.value = new GameMemoryClassic(settings.value)
+  }, 1200)
 }
 function CardClick(card) {
   if (!card.faceUp) {
     if (gameLogic.value.getGameState() != 'running') {
+      // Start the game
       gameLogic.value.StartGame()
       gameTimer(Date.now())
     }
+    // This if will should always run but maybe game can fail to start in the future or something
     if (gameLogic.value.getGameState() == 'running') {
       card.faceUp = true
-      flipedCards.push(card)
+      // flippedCards is array helping track all face up unchecked cards
+      flippedCards.push(card)
       gameLogic.value.steps++
-      if (flipedCards.length > 1) {
+      // Check for matching pair should always run on a second opend card,
+      // users are alowd to be fast and rapidly open multiple pairs (to get better score time)
+      if (flippedCards.length % 2 == 0) {
         setTimeout(function () {
-          if (flipedCards.length > 1) {
-            if (flipedCards[0].imageUrl == flipedCards[1].imageUrl) {
-              solvedCount.value += 2
-              if (isSolved.value) {
-                gameLogic.value.EndGame()
-              }
-            } else {
-              flipedCards[0].faceUp = false
-              flipedCards[1].faceUp = false
+          // Param 'card' should always be index 1 (timeout will give previous two cards time to leave the list)
+          if (flippedCards[0].imageUrl == flippedCards[1].imageUrl) {
+            solvedCount.value += 2
+            if (isSolved.value) {
+              gameLogic.value.EndGame()
             }
-            flipedCards.splice(0, 2)
+          } else {
+            // Cards dont match, flip them
+            flippedCards[0].faceUp = false
+            flippedCards[1].faceUp = false
           }
+          // Cards are checkd and can be removed from checklist
+          flippedCards.splice(0, 2)
         }, 1200)
       }
     }

@@ -1,4 +1,4 @@
-class GameMemory {
+class GameMemoryAdvanced {
   constructor(settings) {
     this._settings = settings
     this.steps = 0
@@ -15,19 +15,23 @@ class GameMemory {
       temp = temp.filter((card) => card.found != true)
     }
     this._mainCard = temp[Math.floor(Math.random() * temp.length)]
-    this._mainCard.faceUp = !this._mainCard.faceUp
+    this._mainCard.faceUp = this._gameState == 'running' ? true : false
   }
 
   StartGame() {
-    this._cards.forEach((card) => {
-      card.faceUp = false
-    })
+    this.FlipAll(false)
     this._gameState = 'running'
     this.steps = 0
   }
 
   EndGame() {
     this._gameState = 'ended'
+  }
+
+  FlipAll(faceUp) {
+    this._cards.forEach((card) => {
+      card.faceUp = faceUp
+    })
   }
 
   _prepareCards() {
@@ -103,4 +107,4 @@ class GameMemory {
     return this._reverseURL
   }
 }
-export default GameMemory
+export default GameMemoryAdvanced

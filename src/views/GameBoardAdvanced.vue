@@ -1,7 +1,7 @@
 <script setup>
 import { useStore } from 'vuex'
 import { computed, ref } from 'vue'
-import GameMemory from '../js/GameMemoryAdvanced'
+import GameMemoryAdvanced from '../js/GameMemoryAdvanced'
 
 const store = useStore()
 const settings = computed(() => store.state.gameSettings)
@@ -9,18 +9,19 @@ const isSolved = computed(() => {
   return solvedCount.value == gameLogic.value._cards.length
 })
 
-let gameLogic = ref(new GameMemory(settings.value))
+let gameLogic = ref(new GameMemoryAdvanced(settings.value))
 let timeElapsed = ref('Nije početo')
 let solvedCount = ref(0)
 
 function Restart() {
-  gameLogic.value = new GameMemory(settings.value)
+  gameLogic.value = new GameMemoryAdvanced(settings.value)
   timeElapsed.value = 'Nije početo'
   solvedCount.value = 0
 }
 function CardClick(card) {
   if (!card.faceUp) {
     if (gameLogic.value.getGameState() != 'running') {
+      // Starts the game and flips forst card
       gameLogic.value.StartGame()
       card.faceUp = true
       gameTimer(Date.now())
@@ -29,13 +30,17 @@ function CardClick(card) {
       gameLogic.value.steps++
       setTimeout(function () {
         if (card.imageUrl == gameLogic.value.getMainCard().imageUrl) {
+          // If flipped card matches main card, mark it as found and increment counter
           solvedCount.value++
           card.found = true
           if (isSolved.value) {
+            // Game is compleated
             gameLogic.value.EndGame()
           }
+          // Select new main card
           gameLogic.value.setMainCard()
         } else {
+          // Card is not the same as main, flip it back
           card.faceUp = false
         }
       }, 1200)

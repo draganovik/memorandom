@@ -1,4 +1,4 @@
-class GameMemory {
+class GameMemoryClassic {
   constructor(gameSettings) {
     this._settings = gameSettings
     this.steps = 0
@@ -28,6 +28,12 @@ class GameMemory {
       _shuffle[i].id = i
     }
     this._cards = this._shuffleCards(_shuffle)
+  }
+
+  FlipAll(faceUp) {
+    this._cards.forEach((card) => {
+      card.faceUp = faceUp
+    })
   }
 
   _shuffleCards(cards) {
@@ -90,4 +96,4 @@ class GameMemory {
     return this._reverseURL
   }
 }
-export default GameMemory
+export default GameMemoryClassic
