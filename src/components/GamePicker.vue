@@ -144,7 +144,7 @@ function changeColumns(event) {
       class="text-gray-700"
       target="_blank"
       href="https://www.vecteezy.com/free-vector/playing-cards"
-      >Playing Cards inspiration from Vecteezy</a
+      >Cards back designs inspired by Vecteezy</a
     >
   </form>
 </template>
