@@ -22,6 +22,10 @@ function changeRows(event) {
 function changeColumns(event) {
   store.commit('changeColumns', event.target.value)
 }
+
+function getYear() {
+  return new Date().getFullYear()
+}
 </script>
 
 <template>
@@ -37,7 +41,7 @@ function changeColumns(event) {
       bg-gray-900
       rounded-none
       opacity-95
-      md:mt-10 md:max-w-xl md:h-auto md:rounded-lg md:opacity-100
+      md:my-10 md:max-w-xl md:h-auto md:rounded-lg md:opacity-100
     "
   >
     <h1 class="text-3xl font-black">Izaberite vrstu igre</h1>
@@ -87,13 +91,12 @@ function changeColumns(event) {
       "
     >
       <div class="flex flex-col gap-4 row-start-1 md:row-span-2">
-        <p class="text-lg">Broj redova: {{ Math.floor(gameSettings.rows) }}</p>
+        <p class="text-lg">Broj redova: {{ gameSettings.rows }}</p>
         <input
           v-model="gameSettings.rows"
           class="w-full"
           type="range"
           min="3"
-          step="1.5"
           max="6"
           @input="changeRows($event)"
         />
@@ -102,7 +105,7 @@ function changeColumns(event) {
           v-model="gameSettings.columns"
           class="w-full"
           type="range"
-          min="4"
+          min="3"
           max="6"
           @input="changeColumns($event)"
         />
@@ -140,12 +143,17 @@ function changeColumns(event) {
         </div>
       </div>
     </div>
-    <a
-      class="text-gray-700"
-      target="_blank"
-      href="https://www.vecteezy.com/free-vector/playing-cards"
-      >Cards back designs inspired by Vecteezy</a
-    >
+    <div class="flex flex-col gap-1 mt-4">
+      <a class="text-gray-500" target="_blank" href="https://draganovik.com"
+        >@ Mladen Draganović {{ getYear() }}</a
+      >
+      <a
+        class="text-gray-700"
+        target="_blank"
+        href="https://www.vecteezy.com/free-vector/playing-cards"
+        >Cards back designs inspired by Vecteezy</a
+      >
+    </div>
   </form>
 </template>
 
