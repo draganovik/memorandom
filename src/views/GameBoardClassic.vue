@@ -18,9 +18,7 @@ function Restart() {
   gameLogic.value.FlipAll(false)
   timeElapsed.value = 'Nije početo'
   solvedCount.value = 0
-  setTimeout(() => {
-    gameLogic.value = new GameMemoryClassic(settings.value)
-  }, 1200)
+  gameLogic.value = new GameMemoryClassic(settings.value)
 }
 function CardClick(card) {
   if (!card.faceUp) {
