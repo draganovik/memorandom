@@ -1,6 +1,6 @@
 # MemoRandom - Halloween 2021 DressCode.ing Challenge
 
-MemoRandom je veb igra pamćenja
+MemoRandom is a card game in which cards are laid face down on a surface and cards are flipped face up over each turn. The object of the game is to turn over pairs of matching cards.
 
 ![logoMemoRandom](https://user-images.githubusercontent.com/15861333/140624609-d766d0a1-c2df-41e9-bb61-d09c5c7ead79.png)
 
