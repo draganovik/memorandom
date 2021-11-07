@@ -7,6 +7,7 @@ MemoRandom je veb igra pamćenja
 ## Badges
 
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/40d90d26-4743-4902-9ebb-6e0015bbb6d7/deploy-status)](https://app.netlify.com/sites/tender-benz-4f88d8/deploys)
 
 ## Tech Stack
 
