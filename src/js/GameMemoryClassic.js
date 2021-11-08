@@ -73,7 +73,7 @@ class GameMemoryClassic {
 
   async _loadObverseClassical() {
     this._cardSet = []
-    for (var i = 1; i < 52; i++) {
+    for (var i = 1; i < 53; i++) {
       this._cardSet.push({
         faceUp: false,
         imageUrl: new URL(
