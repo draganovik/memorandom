@@ -53,5 +53,5 @@ export default createStore({
   },
   actions: {},
   modules: {},
-  plugins: [createPersistedState()]
+  plugins: [createPersistedState({ key: 'gameState' })]
 })
